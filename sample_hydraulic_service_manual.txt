@@ -1,0 +1,21 @@
+# TECHNICAL SERVICE BULLETIN: EX-SERIES HYDRAULIC SYSTEM TROUBLESHOOTING
+Document ID: TSB-HYD-2026-04
+Machine Scope: Tata Hitachi Hydraulic Excavator ZX210 / EX200
+Revision: 1.0
+System: High-Pressure Main Hydraulic Circuit
+
+## 1. COMPONENT: HYDRAULIC PUMP & MAIN RELIEF VALVE
+- Observed Symptom: Slow boom lifting speed, weak bucket digging breakout force under heavy load, excessive hydraulic oil temperature (>85°C after 30 minutes of continuous operation).
+- Primary Inspection:
+  1. Measure main pump discharge pressure at test port MP1. Normal operating pressure under full relief load is 280 to 320 bar.
+  2. If pressure drops below 190 bar when the oil warms up to 60°C, inspect the pump case drain leakage line.
+  3. Case drain flow exceeding 15 L/min at 200 bar indicates severe internal swashplate and piston shoe wear.
+
+## 2. ROOT CAUSE ANALYSIS
+- Cause 1: Internal pump leakage caused by axial piston barrel wear and degraded piston slipper retainers.
+- Cause 2: Main relief valve spring fatigue or contamination in the pilot orifice preventing the valve from holding 280 bar nominal pressure.
+
+## 3. RECOMMENDED REMEDIAL ACTION
+- Action A: Remove main relief valve cartridge, clean pilot damping orifice with solvent, inspect poppet seat for cavitation pitting, and re-torque to 65 Nm.
+- Action B: If internal leakage persists, replace the main hydraulic pump assembly (Part No. TH-9204481) and replace high-pressure filter cartridge. Flush hydraulic reservoir and refill with fresh ISO VG 46 anti-wear hydraulic oil.
+- Verification Criteria: Ensure system pressure holds steadily at 280 bar at 65°C oil temperature with cycle time under 3.5 seconds.

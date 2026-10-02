@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+venv/
+.env
+
+# Node
+node_modules/
+dist/
+
+# Large binary/model files
+*.faiss
+*.faiss.bak
+*.tar.gz
+*.db
+
+# Logs
+*.log
+*.log.err
+*.json.bak
+
+# Tools
+engineering-mem/tools/
+
+# OS
+.DS_Store
+Thumbs.db
