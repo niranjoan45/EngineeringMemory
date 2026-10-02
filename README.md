@@ -1,86 +1,137 @@
-# Engineering Memory Tata - 3D Diagnostic Visualizer
+# 🏗️ Engineering Memory
+### AI-Powered Industrial Diagnosis Workstation for Heavy Machinery
 
-An interactive 3D engineering CAD & mechanical assembly visualizer designed to **dynamically highlight affected components in 3D after each diagnostic report**.
+> **Preserve engineering knowledge. Retrieve proven evidence. Diagnose with confidence — 100% offline.**
 
 ---
 
-## 🌟 Key Features
+## 🎯 What It Does
 
-1. **Dynamic 3D Part Highlighting:**
-   - **Severity-based Color Coding:**
-     - **CRITICAL (Red Pulse):** Emissive sinusoidal pulsing shader with warning alarm indicator.
-     - **WARNING (Amber Glow):** Warm warning glow for elevated threshold wear and minor anomalies.
-     - **MONITORED (Cyan Trace):** Standard diagnostic inspection highlight.
-   - **X-Ray Ghost Mode:** Unaffected components automatically transition to semi-transparent (`opacity: 0.18`) so hidden internal components (e.g. Turbocharger, Transmission internals, Cylinder Head) become instantly visible.
-   - **Auto-Framing Camera Pan:** The camera smoothly tracks, rotates, and zooms into the affected part upon diagnostic completion.
-   - **3D World-Projected Pin/Callout:** A dynamic HUD card hovers above the affected part in 3D coordinate space displaying the DTC fault code, part name, and real-time telemetry metrics.
+A field technician opens a laptop, runs one file, and gets a full AI diagnostic system — no internet, no cloud, no installation needed.
 
-2. **Assembly Explosion & CAD Inspection Controls:**
-   - **Exploded View Slider (0% to 100%):** Displaces each component along its physical assembly vector to inspect hidden sub-assemblies.
-   - **Turntable Auto-Rotation:** Continuous 360° inspection.
-   - **Wireframe Topology Overlay:** Inspect underlying polygon wireframes.
-   - **Camera Presets:** Isometric, Front, Top, and "Focus Affected Part".
+The technician enters symptoms like *"slow boom movement, weak digging force, oil temperature high"* — the system searches **4,009 historical maintenance cases** using semantic AI, highlights the faulty component on a **live 3D machine model**, and gives a repair recommendation backed by real engineering evidence.
 
-3. **Diagnostic Report Engine:**
-   - **Standard OBD-II Fault Scenarios:**
-     - `P0299`: Twin-Scroll Turbocharger & Wastegate (Boost pressure loss, thermal fatigue)
-     - `P0302`: Cylinder Head & Valve Assembly (Combustion misfire, valve recession)
-     - `P0841`: 6-Speed Dual-Clutch Transmission (Hydraulic line pressure spike)
-     - `C0035`: Front Left Brake Caliper & Ventilated Rotor (Thermal runaway & drag)
-     - `P0217`: Cooling Radiator & Heat Exchanger (Thermal gradient anomaly)
-     - `P0620`: Alternator Decoupler Pulley (Ripple voltage modulation)
-   - **Custom Diagnosis Creator:** Allows engineers to pick any component, input custom DTC codes, observations, and severity levels to trigger instant 3D highlighting.
-   - **Engineering Memory Integration:** Displays historical failure rates, technical service bulletins (TSBs), standard operating procedures (SOPs), and root-cause analysis rationale.
+---
+
+## 💡 Key Features
+
+- **AI Semantic Search** — Finds the closest historical failure cases using vector similarity (not keyword matching) across 4,063 embedded vectors
+- **Local AI Reasoning** — Qwen 3:4B runs via Ollama entirely on the laptop, no API calls
+- **3D Interactive Machine Twin** — Diagnosed component highlighted with red pulsing glow and X-ray wireframe, camera auto-frames to the affected part
+- **4,009 Historical Maintenance Cases** — Searchable by symptom, component, failure mode
+- **Engineering Memory Search** — Semantic search across cases and indexed service manuals
+- **Machine Passports with QR Codes** — Scan a QR code on any machine to instantly see its full maintenance history on your phone
+- **Role-Based Workstations** — Technician, Engineer, Admin roles with scoped access
+- **Investigations & Knowledge Center** — Track open fault investigations, approve knowledge before it enters the index
+- **One-click startup** — `start_all.bat` starts everything
 
 ---
 
 ## 🚀 How to Run
 
-### Option 1: Direct Browser Launch (No installation required)
-Simply double-click [`index.html`](file:///c:/Users/Ajith%20Krishna%20Swamy/OneDrive/Desktop/Engineering%20Memory%20Tata/index.html) or open it directly in Chrome, Edge, or Firefox.
+### Prerequisites
+- Python 3.10+
+- [Ollama](https://ollama.com) with `qwen3:4b` pulled
+- Node.js (for frontend build, already built)
 
-### Option 2: Run via Python Server
-Run the provided [`app.py`](file:///c:/Users/Ajith%20Krishna%20Swamy/OneDrive/Desktop/Engineering%20Memory%20Tata/app.py):
-```bash
-python app.py
+### Start Everything
+```bat
+cd engineering-mem
+start_all.bat
 ```
-Then visit:
+
+Then open:
 ```
-http://localhost:8080
+http://localhost:8000/diagnose
 ```
+
+Or double-click `index.html` — it redirects automatically.
 
 ---
 
 ## 📂 Project Architecture
 
 ```
-Engineering Memory Tata/
-├── index.html            # Main 3D WebGL Dashboard with Three.js CAD viewer
-├── sample_reports.json   # Diagnostic telemetry & historical engineering memory data
-├── app.py                # Optional local Python HTTP & REST API server
-└── README.md             # Project documentation and guide
+engineering-mem/
+├── start_all.bat                  # One-click startup
+├── stop_all.bat                   # Stop all services
+├── tools/
+│   └── cloudflared.exe            # Optional public tunnel
+└── em/
+    ├── backend/
+    │   └── app/
+    │       ├── api/               # FastAPI route handlers
+    │       ├── services/          # AI, FAISS, diagnosis, memory
+    │       ├── db/                # SQLite / MySQL client
+    │       └── main.py            # FastAPI entry point
+    ├── frontend/
+    │   └── src/
+    │       ├── pages/             # Diagnose, Machines, Cases, Memory...
+    │       ├── components/
+    │       │   └── 3d/
+    │       │       └── MachineScene.jsx   # Three.js 3D machine twin
+    │       └── config/
+    │           └── navigation.js  # Role-based nav
+    ├── models/
+    │   ├── engineering_memory.faiss        # FAISS vector index (4,063 vectors)
+    │   └── engineering_memory_mapping.json
+    ├── data/
+    │   ├── engineering_memory.db           # SQLite database
+    │   └── raw/                            # Source CSVs
+    └── database/
+        └── schema.sql
 ```
 
 ---
 
-## 🛠️ How to Connect Your Own 3D Models (GLTF / OBJ / STL)
+## 🧠 Tech Stack
 
-If you have your own 3D CAD models (e.g. `.glb`, `.gltf`, `.obj`, or `.stl`), you can load them in [`index.html`](file:///c:/Users/Ajith%20Krishna%20Swamy/OneDrive/Desktop/Engineering%20Memory%20Tata/index.html) using Three.js loaders:
+| Layer | Technology |
+|---|---|
+| AI Reasoning | Qwen 3:4B via Ollama (fully offline) |
+| Embedding | BAAI/bge-small-en-v1.5 (sentence-transformers) |
+| Vector Search | FAISS (4,063 vectors) |
+| Backend | Python FastAPI + Uvicorn |
+| Database | SQLite (local) / MySQL (optional) |
+| Frontend | React + Vite + Tailwind CSS |
+| 3D Viewer | Three.js / React Three Fiber |
+| Tunnel (optional) | Cloudflare Tunnel (trycloudflare.com) |
 
-```javascript
-// Example: Loading a GLTF model
-const loader = new THREE.GLTFLoader();
-loader.load('path/to/vehicle_model.glb', (gltf) => {
-  const model = gltf.scene;
-  
-  // Tag mesh sub-components with your diagnostic IDs
-  model.traverse((child) => {
-    if (child.isMesh) {
-      if (child.name.includes("Turbo")) registerPart('turbocharger', child);
-      if (child.name.includes("Brake")) registerPart('brake_assembly', child);
-    }
-  });
+---
 
-  scene.add(model);
-});
-```
+## 👥 Roles
+
+| Role | Access |
+|---|---|
+| **Technician** | Diagnose, Investigations, Machines |
+| **Engineer** | + Engineering Memory, Historical Cases, Evidence, Sensors, Review Queue |
+| **Admin** | Full access including Ingestion, Vector DB, Audit Logs |
+
+---
+
+## 📱 QR Code Machine Passports
+
+Every machine has a QR code generated from its detail page. Scanning it on any phone shows:
+- Machine model, status, operating hours
+- Full historical maintenance case list
+- No login required to view
+
+---
+
+## ⚙️ How the Diagnosis Works
+
+1. Technician selects machine and enters observed symptoms
+2. System embeds symptoms using BGE model → searches FAISS index
+3. Top matching historical cases + manual passages retrieved in milliseconds
+4. Qwen 3:4B reasons over the evidence and returns likely cause, inspection steps, safety notes
+5. 3D twin highlights the affected component with auto-camera focus
+6. Technician can record verified repair → feeds back into the knowledge base
+
+---
+
+## 🔒 Fully Offline
+
+- No OpenAI, no cloud APIs, no internet required
+- All models run locally
+- All data stored in local SQLite
+- Designed for factory floors, mining sites, and remote field operations
